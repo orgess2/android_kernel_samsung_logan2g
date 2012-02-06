@@ -232,6 +232,7 @@ static int lowmem_shrink(struct shrinker *s, struct shrink_control *sc)
 	selected_oom_adj = min_adj;
 #endif
 
+<<<<<<< HEAD
 #ifdef CONFIG_ZRAM_FOR_ANDROID
 	atomic_set(&s_reclaim.lmk_running, 1);
 #endif
@@ -239,8 +240,14 @@ static int lowmem_shrink(struct shrinker *s, struct shrink_control *sc)
 	for_each_process(p) {
 		struct mm_struct *mm;
 		struct signal_struct *sig;
+=======
+	rcu_read_lock();
+	for_each_process(tsk) {
+		struct task_struct *p;
+>>>>>>> 5ff795b... staging: android/lowmemorykiller: No need for task->signal check
 		int oom_adj;
 
+<<<<<<< HEAD
 		task_lock(p);
 		mm = p->mm;
 		sig = p->signal;
@@ -249,6 +256,9 @@ static int lowmem_shrink(struct shrinker *s, struct shrink_control *sc)
 			continue;
 		}
 		oom_adj = sig->oom_adj;
+=======
+		oom_adj = p->signal->oom_adj;
+>>>>>>> 5ff795b... staging: android/lowmemorykiller: No need for task->signal check
 		if (oom_adj < min_adj) {
 			task_unlock(p);
 			continue;
