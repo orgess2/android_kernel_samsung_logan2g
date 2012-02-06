@@ -246,6 +246,18 @@ static int lowmem_shrink(struct shrinker *s, struct shrink_control *sc)
 		struct task_struct *p;
 >>>>>>> 5ff795b... staging: android/lowmemorykiller: No need for task->signal check
 		int oom_adj;
+<<<<<<< HEAD
+=======
+#ifdef ENHANCED_LMK_ROUTINE
+		int is_exist_oom_task = 0;
+#endif
+		if (tsk->flags & PF_KTHREAD)
+			continue;
+
+		p = find_lock_task_mm(tsk);
+		if (!p)
+			continue;
+>>>>>>> 69de935... staging: android/lowmemorykiller: Do not kill kernel threads
 
 <<<<<<< HEAD
 		task_lock(p);
