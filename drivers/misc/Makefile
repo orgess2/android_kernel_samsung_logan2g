@@ -54,7 +54,6 @@ obj-$(CONFIG_WL127X_RFKILL)	+= wl127x-rfkill.o
 obj-$(CONFIG_APANIC)		+= apanic.o
 obj-y                           += bmc150/
 obj-$(CONFIG_SENSORS_AK8975)	+= akm8975.o
-<<<<<<< HEAD
 obj-$(CONFIG_INPUT_YAS_SENSORS)		+= yas532/
 obj-$(CONFIG_SENSORS_K3DH)	+= k3dh.o
 obj-$(CONFIG_SENSORS_GP2A)	+= gp2a_prox.o 
@@ -66,7 +65,6 @@ obj-$(CONFIG_BTHID)		+= bthid.o
 obj-y		+= sprd_vsp/
 obj-y		+= sprd_busmonitor/
 obj-y		+= sprd_cproc/
-=======
 obj-$(CONFIG_SAMSUNG_C2C)	+= c2c/
 obj-$(CONFIG_USBHUB_USB3503)	+= usb3503.o
 obj-$(CONFIG_USBHUB_USB3503_OTG_CONN)	+= usb3503_otg_conn.o
@@ -105,4 +103,3 @@ obj-$(CONFIG_MACH_M0_CTC)   += cw_tty.o
 CFLAGS_tzic.o :=$(call as-instr,.arch_extension sec,-DREQUIRES_SEC=1)
 obj-$(CONFIG_MOBICORE_SUPPORT)  += tzic.o
 obj-$(CONFIG_UID_CPUTIME) += uid_cputime.o
->>>>>>> f5ceef8... proc: uid: Adds accounting for the cputimes per uid.
