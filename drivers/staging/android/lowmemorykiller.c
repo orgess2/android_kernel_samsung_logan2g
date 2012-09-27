@@ -90,6 +90,7 @@ static uint32_t minimum_interval_time = MIN_CSWAP_INTERVAL;
 #define LOWMEM_DEATHPENDING_DEPTH 3
 #endif
 
+<<<<<<< HEAD
 #ifdef LMK_COUNT_READ
 static uint32_t lmk_count = 0;
 #endif
@@ -108,6 +109,9 @@ static uint32_t oom_count = 0;
 #endif
 
 static uint32_t lowmem_debug_level = 2;
+=======
+static uint32_t lowmem_debug_level = 1;
+>>>>>>> fd6a3ac... staging: android: lowmemorykiller: Change default debug_level to 1
 static int lowmem_adj[6] = {
 	0,
 	1,
