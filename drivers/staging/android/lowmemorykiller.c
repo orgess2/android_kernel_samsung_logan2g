@@ -39,6 +39,11 @@
 #include <linux/mm.h>
 #include <linux/oom.h>
 #include <linux/sched.h>
+<<<<<<< HEAD
+=======
+#include <linux/swap.h>
+#include <linux/rcupdate.h>
+>>>>>>> 495686d... staging: android: lowmemorykiller: Don't count reserved free memory
 #include <linux/notifier.h>
 #ifdef CONFIG_ZRAM_FOR_ANDROID
 #include <linux/fs.h>
@@ -178,7 +183,16 @@ static int lowmem_shrink(struct shrinker *s, struct shrink_control *sc)
 	int selected_oom_score_adj;
 #endif
 	int array_size = ARRAY_SIZE(lowmem_adj);
+<<<<<<< HEAD
 	int other_free = global_page_state(NR_FREE_PAGES);
+=======
+#ifndef CONFIG_DMA_CMA
+	int other_free = global_page_state(NR_FREE_PAGES) - totalreserve_pages;
+#else
+	int other_free = global_page_state(NR_FREE_PAGES) -
+					global_page_state(NR_FREE_CMA_PAGES);
+#endif
+>>>>>>> 495686d... staging: android: lowmemorykiller: Don't count reserved free memory
 	int other_file = global_page_state(NR_FILE_PAGES) -
 						global_page_state(NR_SHMEM);
 
