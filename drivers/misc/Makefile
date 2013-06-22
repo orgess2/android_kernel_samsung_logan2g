@@ -65,19 +65,9 @@ obj-$(CONFIG_BTHID)		+= bthid.o
 obj-y		+= sprd_vsp/
 obj-y		+= sprd_busmonitor/
 obj-y		+= sprd_cproc/
-obj-$(CONFIG_SAMSUNG_C2C)	+= c2c/
 obj-$(CONFIG_USBHUB_USB3503)	+= usb3503.o
 obj-$(CONFIG_USBHUB_USB3503_OTG_CONN)	+= usb3503_otg_conn.o
 obj-$(CONFIG_USBHUB_USB3803)	+= usb3803.o
-ifeq ($(CONFIG_SEC_MODEM_P8LTE),y)
-obj-$(CONFIG_SEC_MODEM)         += modem_if_na/
-else
-ifeq ($(CONFIG_MACH_U1),y)
-obj-$(CONFIG_SEC_MODEM)		+= modem_if_u1/
-else
-obj-$(CONFIG_SEC_MODEM)		+= modem_if/
-endif
-endif
 obj-$(CONFIG_MFD_MAX77693)	+= max77693-muic.o
 obj-$(CONFIG_STMPE811_ADC)	+= stmpe811-adc.o
 obj-$(CONFIG_JACK_MON)		+= jack.o
@@ -92,7 +82,6 @@ obj-$(CONFIG_MUIC_MAX8997)	+= max8997-muic.o
 obj-$(CONFIG_PN544)		+= pn544.o
 obj-$(CONFIG_FM34_WE395)	+= fm34_we395.o
 obj-$(CONFIG_AUDIENCE_ES305)	+= es305.o
-obj-y				+= 2mic/
 
 obj-$(CONFIG_SLP_PROCESS_MON)	+= slp_process_monitor.o
 obj-$(CONFIG_SLP_LOWMEM_NOTIFY)	+= slp_lowmem_notify.o
