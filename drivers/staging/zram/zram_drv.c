@@ -521,7 +521,11 @@ static int zram_bvec_rw(struct zram *zram, struct bio_vec *bvec, u32 index,
 	return ret;
 }
 
+<<<<<<< HEAD
 static void zram_reset_device(struct zram *zram, bool reset_capacity)
+=======
+static void zram_reset_device(struct zram *zram)
+>>>>>>> 88b3402... zram: remove zram_sysfs file (v2)
 {
 	size_t index;
 	struct zram_meta *meta;
@@ -548,9 +552,12 @@ static void zram_reset_device(struct zram *zram, bool reset_capacity)
 
 	zram->disksize = 0;
 	set_capacity(zram->disk, 0);
+<<<<<<< HEAD
 	if (reset_capacity)
 		set_capacity(zram->disk, 0);
 	up_write(&zram->init_lock);
+=======
+>>>>>>> 88b3402... zram: remove zram_sysfs file (v2)
 }
 
 static void zram_init_device(struct zram *zram, struct zram_meta *meta)
@@ -633,7 +640,11 @@ static ssize_t reset_store(struct device *dev,
 	if (bdev)
 		fsync_bdev(bdev);
 
+<<<<<<< HEAD
 	zram_reset_device(zram, true);
+=======
+	zram_reset_device(zram);
+>>>>>>> 88b3402... zram: remove zram_sysfs file (v2)
 	return len;
 }
 
@@ -720,6 +731,7 @@ error:
 	return 0;
 }
 
+<<<<<<< HEAD
 static void __zram_reset_device(struct zram *zram)
 {
 	size_t index;
@@ -862,6 +874,8 @@ fail:
 }
 
 void zram_slot_free_notify(struct block_device *bdev, unsigned long index)
+=======
+>>>>>>> 88b3402... zram: remove zram_sysfs file (v2)
 static void zram_slot_free_notify(struct block_device *bdev,
 				unsigned long index)
 {
