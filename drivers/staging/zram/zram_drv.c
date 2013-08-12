@@ -523,7 +523,10 @@ static int zram_bvec_rw(struct zram *zram, struct bio_vec *bvec, u32 index,
 }
 
 static void zram_reset_device(struct zram *zram, bool reset_capacity)
+<<<<<<< HEAD
 static void zram_reset_device(struct zram *zram)
+=======
+>>>>>>> 36ba493... zram: fix invalid memory access
 {
 	size_t index;
 	struct zram_meta *meta;
@@ -549,7 +552,10 @@ static void zram_reset_device(struct zram *zram)
 	memset(&zram->stats, 0, sizeof(zram->stats));
 
 	zram->disksize = 0;
+<<<<<<< HEAD
 	set_capacity(zram->disk, 0);
+=======
+>>>>>>> 36ba493... zram: fix invalid memory access
 	if (reset_capacity)
 		set_capacity(zram->disk, 0);
 	up_write(&zram->init_lock);
@@ -636,7 +642,10 @@ static ssize_t reset_store(struct device *dev,
 		fsync_bdev(bdev);
 
 	zram_reset_device(zram, true);
+<<<<<<< HEAD
 	zram_reset_device(zram);
+=======
+>>>>>>> 36ba493... zram: fix invalid memory access
 	return len;
 }
 
