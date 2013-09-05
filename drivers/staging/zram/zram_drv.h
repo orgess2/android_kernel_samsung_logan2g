@@ -32,7 +32,11 @@ static const unsigned max_num_devices = 32;
  * Pages that compress to size greater than this are stored
  * uncompressed in memory.
  */
+<<<<<<< HEAD
 static const unsigned max_zpage_size = PAGE_SIZE / 4 * 3;
+=======
+static const size_t max_zpage_size = PAGE_SIZE / 10 * 9;
+>>>>>>> c32d11d... zram: Change ratio to 90% for bad compress
 
 /*
  * NOTE: max_zpage_size must be less than or equal to:
