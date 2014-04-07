@@ -539,11 +539,13 @@ out:
 }
 
 static int zram_bvec_rw(struct zram *zram, struct bio_vec *bvec, u32 index,
-			int offset, struct bio *bio, int rw)
+			int offset, struct bio *bio)
 {
 	int ret;
+	int rw = bio_data_dir(bio);
 
 	if (rw == READ) {
+<<<<<<< HEAD
 		down_read(&zram->lock);
 		handle_pending_slot_free(zram);
 		ret = zram_bvec_read(zram, bvec, index, offset, bio);
@@ -552,6 +554,13 @@ static int zram_bvec_rw(struct zram *zram, struct bio_vec *bvec, u32 index,
 		down_write(&zram->lock);
 		ret = zram_bvec_write(zram, bvec, index, offset);
 		up_write(&zram->lock);
+=======
+		atomic64_inc(&zram->stats.num_reads);
+		ret = zram_bvec_read(zram, bvec, index, offset, bio);
+	} else {
+		atomic64_inc(&zram->stats.num_writes);
+		ret = zram_bvec_write(zram, bvec, index, offset);
+>>>>>>> 25a1032... zram: do not pass rw argument to __zram_make_request()
 	}
 
 	return ret;
@@ -689,22 +698,13 @@ out:
 	return ret;
 }
 
-static void __zram_make_request(struct zram *zram, struct bio *bio, int rw)
+static void __zram_make_request(struct zram *zram, struct bio *bio)
 {
 	int i, offset;
 	u32 index;
 	struct bio_vec *bvec;
 
-	switch (rw) {
-	case READ:
-		atomic64_inc(&zram->stats.num_reads);
-		break;
-	case WRITE:
-		atomic64_inc(&zram->stats.num_writes);
-		break;
-	}
-
-	index = bio->bi_sector >> SECTORS_PER_PAGE_SHIFT;
+        index = bio->bi_sector >> SECTORS_PER_PAGE_SHIFT;
 	offset = (bio->bi_sector & (SECTORS_PER_PAGE - 1)) << SECTOR_SHIFT;
 
 	bio_for_each_segment(bvec, bio, i) {
@@ -721,16 +721,15 @@ static void __zram_make_request(struct zram *zram, struct bio *bio, int rw)
 			bv.bv_len = max_transfer_size;
 			bv.bv_offset = bvec->bv_offset;
 
-			if (zram_bvec_rw(zram, &bv, index, offset, bio, rw) < 0)
+			if (zram_bvec_rw(zram, &bv, index, offset, bio) < 0)
 				goto out;
 
 			bv.bv_len = bvec->bv_len - max_transfer_size;
 			bv.bv_offset += max_transfer_size;
-			if (zram_bvec_rw(zram, &bv, index+1, 0, bio, rw) < 0)
+			if (zram_bvec_rw(zram, &bv, index + 1, 0, bio) < 0)
 				goto out;
 		} else
-			if (zram_bvec_rw(zram, bvec, index, offset, bio, rw)
-			    < 0)
+			if (zram_bvec_rw(zram, bvec, index, offset, bio) < 0)
 				goto out;
 
 		update_position(&index, &offset, bvec);
@@ -760,7 +759,7 @@ static int zram_make_request(struct request_queue *queue, struct bio *bio)
 		goto error;
 	}
 
-	__zram_make_request(zram, bio, bio_data_dir(bio));
+	__zram_make_request(zram, bio);
 	up_read(&zram->init_lock);
 
 	return 0;
