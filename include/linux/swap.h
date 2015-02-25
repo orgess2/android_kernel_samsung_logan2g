@@ -150,6 +150,7 @@ enum {
 	SWP_BLKDEV	= (1 << 6),	/* its a block device */
 					/* add others here before... */
 	SWP_SCANNING	= (1 << 8),	/* refcount in scan_swap_map */
+	SWP_FAST	= (1 << 9),	/* blkdev access is fast and cheap */
 };
 
 #define SWAP_CLUSTER_MAX 32
@@ -201,9 +202,12 @@ struct swap_list_t {
 	int next;	/* swapfile to be used next */
 };
 
+<<<<<<< HEAD
 /* Swap 50% full? */
 #define vm_swap_full() (nr_swap_pages*2 < total_swap_pages)
 
+=======
+>>>>>>> a6ce37f... mm: swap: don't delay swap free for fast swap devices
 /* linux/mm/page_alloc.c */
 extern unsigned long totalram_pages;
 extern unsigned long totalreserve_pages;
@@ -320,6 +324,21 @@ extern struct page *swapin_readahead(swp_entry_t, gfp_t,
 /* linux/mm/swapfile.c */
 extern long nr_swap_pages;
 extern long total_swap_pages;
+extern bool is_swap_fast(swp_entry_t entry);
+
+/* Swap 50% full? Release swapcache more aggressively.. */
+static inline bool vm_swap_full(struct swap_info_struct *si)
+{
+	/*
+	 * If the swap device is fast, return true
+	 * not to delay swap free.
+	 */
+	if (si->flags & SWP_FAST)
+		return true;
+
+	return nr_swap_pages*2 < total_swap_pages;
+}
+
 extern void si_swapinfo(struct sysinfo *);
 extern swp_entry_t get_swap_page(void);
 extern swp_entry_t get_swap_page_of_type(int);
@@ -379,6 +398,7 @@ static inline void mem_cgroup_uncharge_swap(swp_entry_t ent)
 #define nr_swap_pages				0L
 #define total_swap_pages			0L
 #define total_swapcache_pages			0UL
+#define vm_swap_full(si)			0
 
 #define si_swapinfo(val) \
 	do { (val)->freeswap = (val)->totalswap = 0; } while (0)
