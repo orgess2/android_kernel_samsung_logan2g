@@ -54,6 +54,7 @@ obj-$(CONFIG_WL127X_RFKILL)	+= wl127x-rfkill.o
 obj-$(CONFIG_APANIC)		+= apanic.o
 obj-y                           += bmc150/
 obj-$(CONFIG_SENSORS_AK8975)	+= akm8975.o
+<<<<<<< HEAD
 obj-$(CONFIG_INPUT_YAS_SENSORS)		+= yas532/
 obj-$(CONFIG_SENSORS_K3DH)	+= k3dh.o
 obj-$(CONFIG_SENSORS_GP2A)	+= gp2a_prox.o 
@@ -65,3 +66,43 @@ obj-$(CONFIG_BTHID)		+= bthid.o
 obj-y		+= sprd_vsp/
 obj-y		+= sprd_busmonitor/
 obj-y		+= sprd_cproc/
+=======
+obj-$(CONFIG_SAMSUNG_C2C)	+= c2c/
+obj-$(CONFIG_USBHUB_USB3503)	+= usb3503.o
+obj-$(CONFIG_USBHUB_USB3503_OTG_CONN)	+= usb3503_otg_conn.o
+obj-$(CONFIG_USBHUB_USB3803)	+= usb3803.o
+ifeq ($(CONFIG_SEC_MODEM_P8LTE),y)
+obj-$(CONFIG_SEC_MODEM)         += modem_if_na/
+else
+ifeq ($(CONFIG_MACH_U1),y)
+obj-$(CONFIG_SEC_MODEM)		+= modem_if_u1/
+else
+obj-$(CONFIG_SEC_MODEM)		+= modem_if/
+endif
+endif
+obj-$(CONFIG_MFD_MAX77693)	+= max77693-muic.o
+obj-$(CONFIG_STMPE811_ADC)	+= stmpe811-adc.o
+obj-$(CONFIG_JACK_MON)		+= jack.o
+obj-$(CONFIG_UART_SELECT)	+= uart_select.o
+obj-$(CONFIG_WIMAX_CMC)         += max8893.o
+ifeq ($(CONFIG_MUIC_DET_JACK),y)
+obj-$(CONFIG_SEC_DEV_JACK)	+= sec_jack_muic.o
+else
+obj-$(CONFIG_SEC_DEV_JACK)	+= sec_jack.o
+endif
+obj-$(CONFIG_MUIC_MAX8997)	+= max8997-muic.o
+obj-$(CONFIG_PN544)		+= pn544.o
+obj-$(CONFIG_FM34_WE395)	+= fm34_we395.o
+obj-$(CONFIG_AUDIENCE_ES305)	+= es305.o
+obj-y				+= 2mic/
+
+obj-$(CONFIG_SLP_PROCESS_MON)	+= slp_process_monitor.o
+obj-$(CONFIG_SLP_LOWMEM_NOTIFY)	+= slp_lowmem_notify.o
+
+obj-$(CONFIG_MACH_M0_CTC)   += cw_tty.o
+
+# Secure OS Mobicore Interface
+CFLAGS_tzic.o :=$(call as-instr,.arch_extension sec,-DREQUIRES_SEC=1)
+obj-$(CONFIG_MOBICORE_SUPPORT)  += tzic.o
+obj-$(CONFIG_UID_CPUTIME) += uid_cputime.o
+>>>>>>> f5ceef8... proc: uid: Adds accounting for the cputimes per uid.
