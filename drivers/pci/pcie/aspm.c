@@ -790,9 +790,12 @@ void pcie_clear_aspm(struct pci_bus *bus)
 {
 	struct pci_dev *child;
 
+<<<<<<< HEAD
 	if (aspm_force)
 		return;
 
+=======
+>>>>>>> 72cc68a... Update: Optimize for Powersave
 	/*
 	 * Clear any ASPM setup that the firmware has carried out on this bus
 	 */
