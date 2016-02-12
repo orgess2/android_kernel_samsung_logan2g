@@ -1,11 +1,10 @@
 --- net/l2tp/l2tp_ppp.c
 +++ net/l2tp/l2tp_ppp.c
-@@ -908,7 +908,7 @@
- 		goto end_put_sess;
- 	}
+@@ -360,6 +360,7 @@
+ 	l2tp_xmit_skb(session, skb, session->hdr_len);
  
--	inet = inet_sk(sk);
-+	inet = inet_sk(tunnel->sock);
- 	if (tunnel->version == 2) {
- 		struct sockaddr_pppol2tp sp;
- 		len = sizeof(sp);
+ 	sock_put(ps->tunnel_sock);
++	sock_put(sk);
+ 
+ 	return error;
+ 
