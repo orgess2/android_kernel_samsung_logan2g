@@ -1,0 +1,14 @@
+--- kernel/time/tick-sched.c
++++ kernel/time/tick-sched.c
+@@ -484,9 +484,9 @@
+ 				hrtimer_get_expires(&ts->sched_timer), 0))
+ 				break;
+ 		}
+-		/* Update jiffies and reread time */
+-		tick_do_update_jiffies64(now);
++		/* Reread time and update jiffies */
+ 		now = ktime_get();
++		tick_do_update_jiffies64(now);
+ 	}
+ }
+ 

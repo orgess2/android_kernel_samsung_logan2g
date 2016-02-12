@@ -1,0 +1,11 @@
+--- net/l2tp/l2tp_ppp.c
++++ net/l2tp/l2tp_ppp.c
+@@ -908,7 +908,7 @@
+ 		goto end_put_sess;
+ 	}
+ 
+-	inet = inet_sk(sk);
++	inet = inet_sk(tunnel->sock);
+ 	if (tunnel->version == 2) {
+ 		struct sockaddr_pppol2tp sp;
+ 		len = sizeof(sp);
