@@ -1,0 +1,10 @@
+--- mm/page_alloc.c
++++ mm/page_alloc.c
+@@ -2108,6 +2121,7 @@
+ 	unsigned long pages_reclaimed = 0;
+ 	unsigned long did_some_progress;
+ 	bool sync_migration = false;
++	bool deferred_compaction = false;
+ 
+ 	/*
+ 	 * In the slowpath, we sanity check order to avoid ever trying to
