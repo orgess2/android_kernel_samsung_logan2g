@@ -1,10 +1,12 @@
 --- net/l2tp/l2tp_ppp.c
 +++ net/l2tp/l2tp_ppp.c
-@@ -360,6 +360,7 @@
- 	l2tp_xmit_skb(session, skb, session->hdr_len);
+@@ -1771,7 +1771,8 @@
  
- 	sock_put(ps->tunnel_sock);
-+	sock_put(sk);
+ static const struct pppox_proto pppol2tp_proto = {
+ 	.create		= pppol2tp_create,
+-	.ioctl		= pppol2tp_ioctl
++	.ioctl		= pppol2tp_ioctl,
++	.owner		= THIS_MODULE,
+ };
  
- 	return error;
- 
+ #ifdef CONFIG_L2TP_V3
