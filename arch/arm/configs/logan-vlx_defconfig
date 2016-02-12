@@ -1,6 +1,6 @@
 #
 # Automatically generated make config: don't edit
-# Linux/arm 3.0.8 Kernel Configuration
+# Linux/arm 3.0.101 Kernel Configuration
 #
 CONFIG_NKERNEL=y
 CONFIG_NKERNEL_DDI=y
