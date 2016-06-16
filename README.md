@@ -7,7 +7,7 @@ My main focus is to learn about kernels as i am done with roms.
 
 ## Thanks to these repos
 * https://github.com/CyanogenMod/android_kernel_samsung_espresso10
-* https://github.com/CyanogenMod/android_device_samsung_i9300
+* https://github.com/CyanogenMod/android_kernel_samsung_smdk4412
 
 # Mention my name if you like to 
 * FireLord 
