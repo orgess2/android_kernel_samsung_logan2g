@@ -497,20 +497,17 @@ void zram_reset_device(struct zram *zram)
 
 void zram_meta_free(struct zram_meta *meta)
 {
-<<<<<<< HEAD
 	int ret;
 	size_t num_pages;
 	mutex_lock(&zram->init_lock);
 
 	down_write(&zram->init_lock);
-=======
 	zs_destroy_pool(meta->mem_pool);
 	kfree(meta->compress_workmem);
 	free_pages((unsigned long)meta->compress_buffer, 1);
 	vfree(meta->table);
 	kfree(meta);
 }
->>>>>>> 2d2bf2aa... zram: use 3.10 version of zram
 
 struct zram_meta *zram_meta_alloc(u64 disksize)
 {
@@ -523,7 +520,6 @@ struct zram_meta *zram_meta_alloc(u64 disksize)
 	if (!meta->compress_workmem)
 		goto free_meta;
 
-<<<<<<< HEAD
 	zram->compress_workmem = kzalloc(LZO1X_MEM_COMPRESS, GFP_KERNEL);
 	if (!zram->compress_workmem) {
 		pr_err("Error allocating compressor working memory!\n");
@@ -531,33 +527,24 @@ struct zram_meta *zram_meta_alloc(u64 disksize)
 		goto fail;
 	}
 
-	zram->compress_buffer =
-=======
 	meta->compress_buffer =
->>>>>>> 2d2bf2aa... zram: use 3.10 version of zram
 		(void *)__get_free_pages(GFP_KERNEL | __GFP_ZERO, 1);
 	if (!meta->compress_buffer) {
 		pr_err("Error allocating compressor buffer space\n");
-<<<<<<< HEAD
 		ret = -ENOMEM;
 		goto fail;
-=======
 		goto free_workmem;
->>>>>>> 2d2bf2aa... zram: use 3.10 version of zram
 	}
 
 	num_pages = disksize >> PAGE_SHIFT;
 	meta->table = vzalloc(num_pages * sizeof(*meta->table));
 	if (!meta->table) {
 		pr_err("Error allocating zram address table\n");
-<<<<<<< HEAD
 		/* To prevent accessing table entries during cleanup */
 		zram->disksize = 0;
 		ret = -ENOMEM;
 		goto fail;
-=======
 		goto free_buffer;
->>>>>>> 2d2bf2aa... zram: use 3.10 version of zram
 	}
 
 	meta->mem_pool = zs_create_pool(GFP_NOIO | __GFP_HIGHMEM);
@@ -604,7 +591,6 @@ void zram_init_device(struct zram *zram, struct zram_meta *meta)
 	zram->init_done = 1;
 
 	pr_debug("Initialization done!\n");
-<<<<<<< HEAD
 	return 0;
 
 fail:
@@ -612,8 +598,6 @@ fail:
 	up_write(&zram->init_lock);
 	pr_err("Initialization failed: err=%d\n", ret);
 	return ret;
-=======
->>>>>>> 2d2bf2aa... zram: use 3.10 version of zram
 }
 
 void zram_slot_free_notify(struct block_device *bdev, unsigned long index)

@@ -59,15 +59,12 @@ static ssize_t disksize_store(struct device *dev,
 	struct zram_meta *meta;
 	struct zram *zram = dev_to_zram(dev);
 
-<<<<<<< HEAD
 	ret = strict_strtoull(buf, 10, &disksize);
 	if (ret)
 		return ret;
-=======
 	disksize = memparse(buf, NULL);
 	if (!disksize)
 		return -EINVAL;
->>>>>>> 2d2bf2aa... zram: use 3.10 version of zram
 
 	disksize = PAGE_ALIGN(disksize);
 	meta = zram_meta_alloc(disksize);
