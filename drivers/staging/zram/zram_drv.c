@@ -509,12 +509,9 @@ int zram_init_device(struct zram *zram)
 {
 	int ret;
 	size_t num_pages;
-<<<<<<< HEAD
 	mutex_lock(&zram->init_lock);
-=======
 
 	down_write(&zram->init_lock);
->>>>>>> 828121d... staging: zram: fix zram locking
 
 	if (zram->init_done) {
 		up_write(&zram->init_lock);
