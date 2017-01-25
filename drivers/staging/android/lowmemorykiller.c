@@ -8,17 +8,14 @@
  * separated list of numbers in ascending order.
  *
  * For example, write "0,8" to /sys/module/lowmemorykiller/parameters/adj and
-<<<<<<< HEAD
  * "1024,4096" to /sys/module/lowmemorykiller/parameters/minfree to kill processes
  * with a oom_adj value of 8 or higher when the free memory drops below 4096 pages
  * and kill processes with a oom_adj value of 0 or higher when the free memory
  * drops below 1024 pages.
-=======
  * "1024,4096" to /sys/module/lowmemorykiller/parameters/minfree to kill
  * processes with a oom_score_adj value of 8 or higher when the free memory
  * drops below 4096 pages and kill processes with a oom_score_adj value of 0 or
  * higher when the free memory drops below 1024 pages.
->>>>>>> f5db729... staging: android, lowmemorykiller: convert to use oom_score_adj
  *
  * The driver considers memory used for caches to be free, but if a large
  * percentage of the cached memory is locked this can be very inaccurate
@@ -221,13 +218,10 @@ static int lowmem_shrink(struct shrinker *s, struct shrink_control *sc)
 	}
 	if (sc->nr_to_scan > 0)
 		lowmem_print(3, "lowmem_shrink %lu, %x, ofree %d %d, ma %d\n",
-<<<<<<< HEAD
 			     sc->nr_to_scan, sc->gfp_mask, other_free, other_file,
 			     min_adj);
-=======
 				sc->nr_to_scan, sc->gfp_mask, other_free,
 				other_file, min_score_adj);
->>>>>>> f5db729... staging: android, lowmemorykiller: convert to use oom_score_adj
 	rem = global_page_state(NR_ACTIVE_ANON) +
 		global_page_state(NR_ACTIVE_FILE) +
 		global_page_state(NR_INACTIVE_ANON) +
@@ -244,9 +238,7 @@ static int lowmem_shrink(struct shrinker *s, struct shrink_control *sc)
 #else
 	selected_oom_score_adj = min_score_adj;
 #endif
-<<<<<<< HEAD
 
-<<<<<<< HEAD
 #ifdef CONFIG_ZRAM_FOR_ANDROID
 	atomic_set(&s_reclaim.lmk_running, 1);
 #endif
@@ -254,20 +246,14 @@ static int lowmem_shrink(struct shrinker *s, struct shrink_control *sc)
 	for_each_process(p) {
 		struct mm_struct *mm;
 		struct signal_struct *sig;
-=======
 	rcu_read_lock();
 	for_each_process(tsk) {
 		struct task_struct *p;
->>>>>>> 5ff795b... staging: android/lowmemorykiller: No need for task->signal check
 		int oom_adj;
-<<<<<<< HEAD
-=======
-=======
 	rcu_read_lock();
 	for_each_process(tsk) {
 		struct task_struct *p;
 		int oom_score_adj;
->>>>>>> f5db729... staging: android, lowmemorykiller: convert to use oom_score_adj
 #ifdef ENHANCED_LMK_ROUTINE
 		int is_exist_oom_task = 0;
 #endif
@@ -277,10 +263,8 @@ static int lowmem_shrink(struct shrinker *s, struct shrink_control *sc)
 		p = find_lock_task_mm(tsk);
 		if (!p)
 			continue;
->>>>>>> 69de935... staging: android/lowmemorykiller: Do not kill kernel threads
 
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 		task_lock(p);
 		mm = p->mm;
 		sig = p->signal;
@@ -289,14 +273,10 @@ static int lowmem_shrink(struct shrinker *s, struct shrink_control *sc)
 			continue;
 		}
 		oom_adj = sig->oom_adj;
-=======
 		oom_adj = p->signal->oom_adj;
->>>>>>> 5ff795b... staging: android/lowmemorykiller: No need for task->signal check
 		if (oom_adj < min_adj) {
-=======
 		oom_score_adj = p->signal->oom_score_adj;
 		if (oom_score_adj < min_score_adj) {
->>>>>>> f5db729... staging: android, lowmemorykiller: convert to use oom_score_adj
 			task_unlock(p);
 			continue;
 		}
