@@ -547,13 +547,10 @@ static void zram_reset_device(struct zram *zram, bool reset_capacity)
 	memset(&zram->stats, 0, sizeof(zram->stats));
 
 	zram->disksize = 0;
-<<<<<<< HEAD
 	set_capacity(zram->disk, 0);
-=======
 	if (reset_capacity)
 		set_capacity(zram->disk, 0);
 	up_write(&zram->init_lock);
->>>>>>> 36ba493... zram: fix invalid memory access
 }
 
 static void zram_init_device(struct zram *zram, struct zram_meta *meta)
