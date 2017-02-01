@@ -974,6 +974,7 @@ CONFIG_TUN=y
 # CONFIG_VETH is not set
 CONFIG_MII=y
 CONFIG_PHYLIB=y
+CONFIG_BLX=y
 
 #
 # MII PHY device drivers
