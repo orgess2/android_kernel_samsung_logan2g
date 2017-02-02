@@ -32,11 +32,8 @@
 #include <linux/lzo.h>
 #include <linux/string.h>
 #include <linux/vmalloc.h>
-<<<<<<< HEAD
-=======
 #include <linux/ratelimit.h>
 
->>>>>>> b8a2bd1... staging: zram: Rate limit memory allocation errors
 #include "zram_drv.h"
 
 /* Globals */
