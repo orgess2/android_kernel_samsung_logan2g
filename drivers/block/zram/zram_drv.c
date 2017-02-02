@@ -769,7 +769,6 @@ error:
 	return 0;
 }
 
-<<<<<<< HEAD
 static void __zram_reset_device(struct zram *zram)
 {
 	size_t index;
@@ -930,8 +929,6 @@ static void add_slot_free(struct zram *zram, struct zram_slot_free *free_rq)
 	spin_unlock(&zram->slot_free_lock);
 }
 
-=======
->>>>>>> cdbd2a6... zram: remove workqueue for freeing removed pending slot
 static void zram_slot_free_notify(struct block_device *bdev,
 				unsigned long index)
 {
