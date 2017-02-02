@@ -648,12 +648,9 @@ static void zram_reset_device(struct zram *zram)
 	memset(&zram->stats, 0, sizeof(zram->stats));
 
 	zram->disksize = 0;
-<<<<<<< HEAD
 	set_capacity(zram->disk, 0);
 	if (reset_capacity)
-=======
 	if (reset_capacity) {
->>>>>>> 9a9f224... zram: revalidate disk after capacity change
 		set_capacity(zram->disk, 0);
 		revalidate_disk(zram->disk);
 	}
