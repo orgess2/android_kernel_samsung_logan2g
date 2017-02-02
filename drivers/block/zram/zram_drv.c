@@ -565,12 +565,9 @@ static void zram_reset_device(struct zram *zram)
 	size_t index;
 	struct zram_meta *meta;
 
-<<<<<<< HEAD
 	if (!zram->init_done)
 	flush_work(&zram->free_work);
 
-=======
->>>>>>> 5343c20... zram: fix race between reset and flushing pending work
 	down_write(&zram->init_lock);
 	if (!zram->init_done) {
 		up_write(&zram->init_lock);
