@@ -364,11 +364,9 @@ static int zram_bvec_write(struct zram *zram, struct bio_vec *bvec, u32 index,
 	unsigned char *user_mem, *cmem, *src, *uncmem = NULL;
 	struct zram_meta *meta = zram->meta;
 	static unsigned long zram_rs_time;
-<<<<<<< HEAD
-=======
 	struct zcomp_strm *zstrm;
 	bool locked = false;
->>>>>>> 1822109... zram: use zcomp compressing backends
+
 
 	page = bvec->bv_page;
 	if (is_partial_io(bvec)) {
@@ -386,11 +384,8 @@ static int zram_bvec_write(struct zram *zram, struct bio_vec *bvec, u32 index,
 			goto out;
 	}
 
-<<<<<<< HEAD
-=======
 	zstrm = zcomp_strm_find(zram->comp);
 	locked = true;
->>>>>>> 1822109... zram: use zcomp compressing backends
 	user_mem = kmap_atomic(page);
 
 	if (is_partial_io(bvec)) {
@@ -415,13 +410,10 @@ static int zram_bvec_write(struct zram *zram, struct bio_vec *bvec, u32 index,
 		goto out;
 	}
 
-<<<<<<< HEAD
 	ret = lzo1x_1_compress(uncmem, PAGE_SIZE, src, &clen,
 			       meta->compress_workmem);
 
-=======
 	ret = zcomp_compress(zram->comp, zstrm, uncmem, &clen);
->>>>>>> 1822109... zram: use zcomp compressing backends
 	if (!is_partial_io(bvec)) {
 		kunmap_atomic(user_mem);
 		user_mem = NULL;
@@ -477,11 +469,8 @@ static int zram_bvec_write(struct zram *zram, struct bio_vec *bvec, u32 index,
 	atomic64_add(clen, &zram->stats.compr_data_size);
 	atomic64_inc(&zram->stats.pages_stored);
 out:
-<<<<<<< HEAD
-=======
 	if (locked)
 		zcomp_strm_release(zram->comp, zstrm);
->>>>>>> 1822109... zram: use zcomp compressing backends
 	if (is_partial_io(bvec))
 		kfree(uncmem);
 	if (ret)
