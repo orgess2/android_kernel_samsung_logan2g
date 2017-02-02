@@ -308,12 +308,8 @@ checks:
 	if (offset > si->highest_bit)
 		scan_base = offset = si->lowest_bit;
 
-	/* reuse swap entry of cache-only swap if not busy. */
-<<<<<<< HEAD
-	if (si->swap_map[offset] == SWAP_HAS_CACHE) {
-=======
+	/* reuse swap entry of cache-only swap if not busy. */{
 	if (vm_swap_full(si) && si->swap_map[offset] == SWAP_HAS_CACHE) {
->>>>>>> a6ce37f... mm: swap: don't delay swap free for fast swap devices
 		int swap_was_freed;
 		spin_unlock(&swap_lock);
 		swap_was_freed = __try_to_reclaim_swap(si, offset);
@@ -402,12 +398,8 @@ scan:
 			spin_lock(&swap_lock);
 			goto checks;
 		}
-<<<<<<< HEAD
-		if (si->swap_map[offset] == SWAP_HAS_CACHE) {
-=======
 		if (vm_swap_full(si) &&
 			si->swap_map[offset] == SWAP_HAS_CACHE) {
->>>>>>> a6ce37f... mm: swap: don't delay swap free for fast swap devices
 			spin_lock(&swap_lock);
 			goto checks;
 		}
@@ -422,12 +414,8 @@ scan:
 			spin_lock(&swap_lock);
 			goto checks;
 		}
-<<<<<<< HEAD
-		if (si->swap_map[offset] == SWAP_HAS_CACHE) {
-=======
 		if (vm_swap_full(si) &&
 			si->swap_map[offset] == SWAP_HAS_CACHE) {
->>>>>>> a6ce37f... mm: swap: don't delay swap free for fast swap devices
 			spin_lock(&swap_lock);
 			goto checks;
 		}

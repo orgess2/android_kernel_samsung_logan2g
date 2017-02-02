@@ -202,12 +202,6 @@ struct swap_list_t {
 	int next;	/* swapfile to be used next */
 };
 
-<<<<<<< HEAD
-/* Swap 50% full? */
-#define vm_swap_full() (nr_swap_pages*2 < total_swap_pages)
-
-=======
->>>>>>> a6ce37f... mm: swap: don't delay swap free for fast swap devices
 /* linux/mm/page_alloc.c */
 extern unsigned long totalram_pages;
 extern unsigned long totalreserve_pages;

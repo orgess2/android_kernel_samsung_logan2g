@@ -986,11 +986,7 @@ cull_mlocked:
 
 activate_locked:
 		/* Not a candidate for swapping, so reclaim swap space. */
-<<<<<<< HEAD
-		if (PageSwapCache(page))
-=======
 		if (PageSwapCache(page) && vm_swap_full(page_swap_info(page)))
->>>>>>> a6ce37f... mm: swap: don't delay swap free for fast swap devices
 			try_to_free_swap(page);
 		VM_BUG_ON(PageActive(page));
 		SetPageActive(page);
