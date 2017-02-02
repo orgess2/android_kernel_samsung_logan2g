@@ -552,15 +552,12 @@ static void zram_reset_device(struct zram *zram)
 	size_t index;
 	struct zram_meta *meta;
 
-<<<<<<< HEAD
 	if (!zram->init_done)
-=======
 	flush_work(&zram->free_work);
 
 	down_write(&zram->init_lock);
 	if (!zram->init_done) {
 		up_write(&zram->init_lock);
->>>>>>> 84fe4a2... zram: don't grab mutex in zram_slot_free_noity
 		return;
 
 	meta = zram->meta;
@@ -755,7 +752,6 @@ error:
 	return 0;
 }
 
-<<<<<<< HEAD
 static void __zram_reset_device(struct zram *zram)
 {
 	size_t index;
@@ -898,7 +894,6 @@ fail:
 }
 
 void zram_slot_free_notify(struct block_device *bdev, unsigned long index)
-=======
 static void zram_slot_free(struct work_struct *work)
 {
 	struct zram *zram;
@@ -917,7 +912,6 @@ static void add_slot_free(struct zram *zram, struct zram_slot_free *free_rq)
 	spin_unlock(&zram->slot_free_lock);
 }
 
->>>>>>> 84fe4a2... zram: don't grab mutex in zram_slot_free_noity
 static void zram_slot_free_notify(struct block_device *bdev,
 				unsigned long index)
 {
