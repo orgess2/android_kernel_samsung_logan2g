@@ -545,7 +545,6 @@ static int zram_bvec_rw(struct zram *zram, struct bio_vec *bvec, u32 index,
 	int rw = bio_data_dir(bio);
 
 	if (rw == READ) {
-<<<<<<< HEAD
 		down_read(&zram->lock);
 		handle_pending_slot_free(zram);
 		ret = zram_bvec_read(zram, bvec, index, offset, bio);
@@ -554,13 +553,11 @@ static int zram_bvec_rw(struct zram *zram, struct bio_vec *bvec, u32 index,
 		down_write(&zram->lock);
 		ret = zram_bvec_write(zram, bvec, index, offset);
 		up_write(&zram->lock);
-=======
 		atomic64_inc(&zram->stats.num_reads);
 		ret = zram_bvec_read(zram, bvec, index, offset, bio);
 	} else {
 		atomic64_inc(&zram->stats.num_writes);
 		ret = zram_bvec_write(zram, bvec, index, offset);
->>>>>>> 25a1032... zram: do not pass rw argument to __zram_make_request()
 	}
 
 	return ret;
