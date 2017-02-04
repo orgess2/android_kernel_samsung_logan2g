@@ -631,8 +631,8 @@ static int sc8825_is_plus(int cpu){
 	/*
 	 * sc8825+ runs at 1.2GHz
 	 */
-	if(cpu_clk == 1200000000)
-		sc8825_is_plus =  1;
+//	if(cpu_clk == 1200000000)
+//		sc8825_is_plus =  1;
 
 	return sc8825_is_plus;
 }
