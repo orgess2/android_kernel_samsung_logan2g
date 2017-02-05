@@ -12,11 +12,8 @@
 #include <linux/module.h>
 #include <linux/types.h>
 #include <linux/cpu.h>
-<<<<<<< HEAD
-=======
 #include <linux/cpu_pm.h>
 #include <linux/hardirq.h>
->>>>>>> c3b9ee2... ARM: vfp: Use cpu pm notifiers to save vfp state
 #include <linux/kernel.h>
 #include <linux/notifier.h>
 #include <linux/signal.h>
