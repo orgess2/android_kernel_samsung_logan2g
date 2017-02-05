@@ -5,7 +5,6 @@
  * it under the terms of the GNU General Public License version 2 as
  * published by the Free Software Foundation.
  */
-<<<<<<< HEAD
 #ifndef __ASM_ARM_OPCODES_H
 #define __ASM_ARM_OPCODES_H
 #ifndef __ASSEMBLY__
@@ -63,7 +62,6 @@ extern asmlinkage unsigned int arm_check_condition(u32 opcode, u32 psr);
 #define __opcode_thumb32_compose(first, second) \
 	(((u32)(u16)(first) << 16) | (u32)(u16)(second))
 #endif /* __ASSEMBLY__ */
-=======
 
 #ifndef __ASM_ARM_OPCODES_H
 #define __ASM_ARM_OPCODES_H
@@ -76,5 +74,4 @@ extern asmlinkage unsigned int arm_check_condition(u32 opcode, u32 psr);
 #define ARM_OPCODE_CONDTEST_PASS   1
 #define ARM_OPCODE_CONDTEST_UNCOND 2
 
->>>>>>> 827605e... ARM: 7206/1: Add generic ARM instruction set condition code checks.
 #endif /* __ASM_ARM_OPCODES_H */
