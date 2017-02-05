@@ -602,7 +602,6 @@ static int __devinit acpi_pci_root_add(struct acpi_device *device)
 				 */
 				pcie_clear_aspm(root->bus);
 			}
-<<<<<<< HEAD
 			if (acpi_gbl_FADT.boot_flags & ACPI_FADT_NO_ASPM) {
 				/*
 				 * We have ASPM control, but the FADT indicates
@@ -610,8 +609,6 @@ static int __devinit acpi_pci_root_add(struct acpi_device *device)
 				 */
 				pcie_clear_aspm(root->bus);
 			}
-=======
->>>>>>> 72cc68a... Update: Optimize for Powersave
 		} else {
 			dev_info(root->bus->bridge,
 				"ACPI _OSC request failed (%s), "
