@@ -717,22 +717,6 @@ const char * const vmstat_text[] = {
 	"numa_local",
 	"numa_other",
 #endif
-<<<<<<< HEAD
-=======
-#ifdef CONFIG_CMA
-	"cmafree",
-	"cmaanon_inactive",
-	"cmaanon_active",
-	"cmafile_inactive",
-	"cmafile_active",
-	"cmaunevictable",
-	"contigalloc",
-#endif
-
-#ifdef CONFIG_UKSM
-        "nr_uksm_zero_pages",
-#endif
->>>>>>> 267ac85... Add UKSM
 	"nr_anon_transparent_hugepages",
 	"nr_dirty_threshold",
 	"nr_dirty_background_threshold",

@@ -114,24 +114,6 @@ enum zone_stat_item {
 	NUMA_LOCAL,		/* allocation from local node */
 	NUMA_OTHER,		/* allocation from other node */
 #endif
-<<<<<<< HEAD
-=======
-#ifdef CONFIG_CMA
-	NR_FREE_CMA_PAGES,
-	NR_LRU_CMA_BASE,
-	NR_CMA_INACTIVE_ANON = NR_LRU_CMA_BASE,
-	NR_CMA_ACTIVE_ANON,
-	NR_CMA_INACTIVE_FILE,
-	NR_CMA_ACTIVE_FILE,
-	NR_CMA_UNEVICTABLE,
-	NR_CONTIG_PAGES,
-#endif
-
-#ifdef CONFIG_UKSM
-	NR_UKSM_ZERO_PAGES,
-#endif
-
->>>>>>> 267ac85... Add UKSM
 	NR_ANON_TRANSPARENT_HUGEPAGES,
 	NR_VM_ZONE_STAT_ITEMS };
 
