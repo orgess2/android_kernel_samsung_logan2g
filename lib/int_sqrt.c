@@ -38,10 +38,16 @@ inline unsigned long int_sqrt(unsigned long x)
 			x -= tmp;
 			root += place;
 		}
+<<<<<<< HEAD
+		m >>= 2;
+	}
+	return y;
+=======
 		place >>= 2;
 	}while (place != 0);
 
 	return root;
+>>>>>>> cfd720f... Optimized Integer SQRT. for upto 3x faster operation
 }
 EXPORT_SYMBOL(int_sqrt);
 
