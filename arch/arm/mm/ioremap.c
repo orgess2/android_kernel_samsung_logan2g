@@ -194,7 +194,6 @@ void __iomem * __arm_ioremap_pfn_caller(unsigned long pfn,
 	int err;
 	unsigned long addr;
  	struct vm_struct * area;
-	bool is_pfn_valid;
 
 	/*
 	 * High mappings must be supersection aligned
@@ -206,20 +205,8 @@ void __iomem * __arm_ioremap_pfn_caller(unsigned long pfn,
 	/*
 	 * Don't allow RAM to be mapped - this causes problems with ARMv6+
 	 */
-#ifdef CONFIG_CMA
-	/* Skipping the check for CMA areas is a hack that allows CMA memory to be mapped for
-	 * our purposes. Given the memory is not simultaneously used for anything else,
-	 * it should be fine. However, the proper fix would be to remove these pages from
-	 * 'memory' regions, flush the TLB, etc - see DMA allocation parts of the original
-	 * CMA implementation. */
-	is_pfn_valid = pfn_valid(pfn);
-	if (is_pfn_valid && get_pageblock_migratetype(pfn_to_page(pfn)) != MIGRATE_CMA) {
-		WARN_ON(is_pfn_valid);
+	if (WARN_ON(pfn_valid(pfn)))
 		return NULL;
-        }
-#else
-  	if (WARN_ON(pfn_valid(pfn)))
-  		return NULL;
 #endif
 
 	type = get_mem_type(mtype);
