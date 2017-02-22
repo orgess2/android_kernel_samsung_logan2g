@@ -328,13 +328,8 @@ isolate_migratepages_range(struct zone *zone, struct compact_control *cc,
 			mode |= ISOLATE_ASYNC_MIGRATE;
 
 		/* Try isolate the page */
-		if (__isolate_lru_page(page, mode, 0) != 0) {
-#ifdef CONFIG_CMA_DEBUG_VERBOSE
-			pr_err("isolate_migratepages_range: failed to isolate LRU pfn 0x%lx, skipping\n", low_pfn);
-			print_cma_page_stats(page);
-#endif
+		if (__isolate_lru_page(page, mode, 0) != 0)
 			continue;
-		}
 
 		VM_BUG_ON(PageTransCompound(page));
 
