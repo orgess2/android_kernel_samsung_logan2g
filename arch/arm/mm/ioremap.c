@@ -1,4 +1,3 @@
-
 /*
  *  linux/arch/arm/mm/ioremap.c
  *
@@ -203,6 +202,7 @@ void __iomem * __arm_ioremap_pfn_caller(unsigned long pfn,
 	if (pfn >= 0x100000 && (__pfn_to_phys(pfn) & ~SUPERSECTION_MASK))
 		return NULL;
 
+#if !(defined(CONFIG_ANDROID_PMEM)||defined(CONFIG_ION))
 	/*
 	 * Don't allow RAM to be mapped - this causes problems with ARMv6+
 	 */
@@ -216,7 +216,7 @@ void __iomem * __arm_ioremap_pfn_caller(unsigned long pfn,
 	if (is_pfn_valid && get_pageblock_migratetype(pfn_to_page(pfn)) != MIGRATE_CMA) {
 		WARN_ON(is_pfn_valid);
 		return NULL;
-	}
+        }
 #else
   	if (WARN_ON(pfn_valid(pfn)))
   		return NULL;
