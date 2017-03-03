@@ -70,6 +70,8 @@
 #include <dhd_bta.h>
 #endif
 
+#include "bcmon.h"
+
 #ifdef WLMEDIA_HTSF
 #include <linux/time.h>
 #include <htsf.h>
@@ -1867,6 +1869,19 @@ dhd_rx_frame(dhd_pub_t *dhdp, int ifidx, void *pktbuf, int numpkt, uint8 chan)
 			ifp = dhd->iflist[0];
 
 		ASSERT(ifp);
+
+		if (chan==15) {
+			skb = bcmon_decode_skb(skb);
+			if(skb==0)
+			{
+				return;
+			}
+		}
+		else {
+			PKTFREE(dhdp->osh, skb, FALSE);
+			return;
+		}
+
 		skb->dev = ifp->net;
 		skb->protocol = eth_type_trans(skb, skb->dev);
 
@@ -1874,14 +1889,19 @@ dhd_rx_frame(dhd_pub_t *dhdp, int ifidx, void *pktbuf, int numpkt, uint8 chan)
 			dhd->pub.rx_multicast++;
 		}
 
-		skb->data = eth;
-		skb->len = len;
+		if (chan != 15)
+		{
+			skb->data = eth;
+			skb->len = len;
+		}
 
 #ifdef WLMEDIA_HTSF
 		dhd_htsf_addrxts(dhdp, pktbuf);
 #endif
-		/* Strip header, count, deliver upward */
-		skb_pull(skb, ETH_HLEN);
+		if (chan != 15) {
+			/* Strip header, count, deliver upward */
+			skb_pull(skb, ETH_HLEN);
+		}
 
 		/* Process special event packets and then discard them */
 		if (ntoh16(skb->protocol) == ETHER_TYPE_BRCM) {
@@ -4346,6 +4366,8 @@ static int dhd_device_event(struct notifier_block *this,
 }
 #endif /* ARP_OFFLOAD_SUPPORT */
 
+#define ARPHRD_IEEE80211_RADIOTAP 803
+
 int
 dhd_net_attach(dhd_pub_t *dhdp, int ifidx)
 {
@@ -4420,6 +4442,8 @@ dhd_net_attach(dhd_pub_t *dhdp, int ifidx)
 #endif /* defined(CONFIG_WIRELESS_EXT) */
 
 	dhd->pub.rxsz = DBUS_RX_BUFFER_SIZE_DHD(net);
+
+	net->type = ARPHRD_IEEE80211_RADIOTAP;
 
 	memcpy(net->dev_addr, temp_addr, ETHER_ADDR_LEN);
 
