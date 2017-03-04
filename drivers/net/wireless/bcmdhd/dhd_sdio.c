@@ -2728,7 +2728,7 @@ dhdsdio_devram_remap(dhd_bus_t *bus, bool val)
 	si_socdevram(bus->sih, TRUE, &enable, &protect, &remap);
 }
 
-int
+static int
 dhdsdio_membytes(dhd_bus_t *bus, bool write, uint32 address, uint8 *data, uint size)
 {
 	int bcmerror = 0;
@@ -5713,17 +5713,6 @@ deliver:
 			}
 			continue;
 		}
-
-		if(chan==0xf)
-		{
-			//PKTSETLEN(osh, pkt, len+14);
-			//PKTPULL(osh, pkt, doff);
-			dhd_os_sdunlock(bus->dhd);
-			dhd_rx_frame(bus->dhd, ifidx, pkt, 1, chan);
-			dhd_os_sdlock(bus->dhd);
-			continue;
-		}
-
 
 		/* Fill in packet len and prio, deliver upward */
 		PKTSETLEN(osh, pkt, len);
