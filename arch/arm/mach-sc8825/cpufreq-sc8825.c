@@ -47,7 +47,7 @@
 #define MCU_CLK_PARENT_256M 	(BIT(24))
 #define MCU_CLK_PARENT_384M 	(BIT(23))
 #define MCU_CLK_PARENT_MPLL 	(0)
-#define MHz                     (1000000)
+#define MHz                     (1300000)
 #define GR_MPLL_REFIN_2M        (2*MHz)
 #define GR_MPLL_REFIN_4M        (4*MHz)
 #define GR_MPLL_REFIN_13M       (13*MHz)
@@ -73,7 +73,7 @@
 
 #define WAIT_US			200
 #define DELTA 			msecs_to_jiffies(500)
-#define FREQ_TABLE_ENTRY	(7)
+#define FREQ_TABLE_ENTRY	(8)
 #define DELAY_TIME		(40*HZ)
 
 DECLARE_PER_CPU(struct cpufreq_policy *, cpufreq_cpu_data);
@@ -108,12 +108,13 @@ struct sprd_dvfs_table {
 };
 
 static struct sprd_dvfs_table sc8825g_dvfs_table[] = {
-	[0] = { 1000000 , 1200000 }, /* 1000,000KHz,  1200mv */
-	[1] = {  900000 , 1180000 }, /* 900,000KHz,  1180mv */
-	[2] = {  800000 , 1160000 }, /* 800,000KHz,  1160mv */
-	[3] = {  700000 , 1140000 }, /* 700,000KHz,  1140mv */
-	[4] = {  600000 , 1120000 }, /* 600,000KHz,  1120mv */
-	[5] = {  500000 , 1100000 }, /* 500,000KHz,  1100mv */
+	[0] = { 1300000 , 1300000 }, /* 1000,000KHz,  1200mv */
+	[1] = { 1000000 , 1200000 }, /* 1000,000KHz,  1200mv */
+	[2] = {  900000 , 1180000 }, /* 900,000KHz,  1180mv */
+	[3] = {  800000 , 1160000 }, /* 800,000KHz,  1160mv */
+	[4] = {  700000 , 1140000 }, /* 700,000KHz,  1140mv */
+	[5] = {  600000 , 1120000 }, /* 600,000KHz,  1120mv */
+	[6] = {  500000 , 1100000 }, /* 500,000KHz,  1100mv */
 };
 
 static struct sprd_dvfs_table sc8825g_plus_dvfs_table[] = {
@@ -217,7 +218,6 @@ static unsigned long get_max_dvfs_vdd(void)
 
 #if 0
 static int set_mcu_vdd(int cpu, unsigned long vdd_mcu_uv){
-
 	int ret = 0;
 	struct regulator *vdd = scalable_sc8825[cpu].vdd;
 	if(vdd)
@@ -229,7 +229,6 @@ static int set_mcu_vdd(int cpu, unsigned long vdd_mcu_uv){
 		return ret;
 	}
     return ret;
-
 }
 #endif
 

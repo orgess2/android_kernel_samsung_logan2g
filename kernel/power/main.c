@@ -314,6 +314,8 @@ static ssize_t cpufreq_table_show(struct kobject *kobj,
 	unsigned int min_freq = ~0;
 	unsigned int max_freq = 0;
 	unsigned int i = 0;
+	struct cpufreq_table_data *table_data;
+//	struct cpufreq_frequency_table *table=table_data->freq_tbl; 
 
 	table = cpufreq_frequency_get_table(0);
 	if (!table) {
@@ -425,7 +427,12 @@ power_attr(cpufreq_table);
 power_attr(cpufreq_max_limit);
 power_attr(cpufreq_min_limit);
 #endif
-
+// Add support for Psych Half's cpu frequency module .
+#define FREQ_TABLE_SIZE 	(11)
+extern struct cpufreq_table_data {
+	struct cpufreq_frequency_table 		freq_tbl[FREQ_TABLE_SIZE];
+	unsigned long				vdduv_tbl[FREQ_TABLE_SIZE];
+};
 #ifdef CONFIG_PM_TRACE
 int pm_trace_enabled;
 
