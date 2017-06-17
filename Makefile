@@ -187,7 +187,7 @@ SUBARCH := $(shell uname -m | sed -e s/i.86/i386/ -e s/sun4u/sparc64/ \
 				  -e s/sh[234].*/sh/ )
 
 ARCH		?= arm
-CROSS_COMPILE	?= /opt/toolchains/arm-eabi-4.4.3/bin/arm-eabi-
+CROSS_COMPILE	?= ~/arm-eabi-4.8/bin/arm-eabi-
 
 # Cross compiling and selecting different set of gcc/bin-utils
 # ---------------------------------------------------------------------------
@@ -265,6 +265,8 @@ HOSTCC       = gcc
 HOSTCXX      = g++
 HOSTCFLAGS   = -Wall -Wmissing-prototypes -Wstrict-prototypes -O2 -fomit-frame-pointer
 HOSTCXXFLAGS = -O2
+ccflags-y += -D__CHECK_ENDIAN__
+CFLAGS_trace.o := -I$(src)
 
 # Decide whether to build built-in, modular, or both.
 # Normally, just do built-in.
